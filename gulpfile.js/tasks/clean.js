@@ -5,7 +5,7 @@ var htmlConfig = require('../config/html');
 
 gulp.task('clean', function (cb) {
   del([
-    config.publicAssets,
-    htmlConfig.dest
+    config.publicAssets + '/*',
+    htmlConfig.dest + '/*'
   ], cb);
 });

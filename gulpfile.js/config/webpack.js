@@ -14,13 +14,13 @@ module.exports = function(env) {
     plugins: [],
 
     resolve: {
-      extensions: ['', '.js']
+      extensions: ['', '.js', '.jsx']
     },
 
     module: {
       loaders: [
         {
-          test: /\.js$/,
+          test: /\.jsx?$/,
           loader: 'babel-loader?stage=1',
           exclude: /node_modules/
         }
@@ -31,8 +31,7 @@ module.exports = function(env) {
   if(env !== 'test') {
     // Karma doesn't need entry points or output settings
     webpackConfig.entry= {
-      page1: [ './page1.js' ],
-      page2: [ './page2.js' ]
+      app: './app.js'
     }
 
     webpackConfig.output= {
@@ -40,14 +39,6 @@ module.exports = function(env) {
       filename: env === 'production' ? '[name]-[hash].js' : '[name].js',
       publicPath: publicPath
     }
-
-    // Factor out common dependencies into a shared.js
-    webpackConfig.plugins.push(
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'shared',
-        filename: env === 'production' ? '[name]-[hash].js' : '[name].js',
-      })
-    )
   }
 
   if(env === 'development') {
